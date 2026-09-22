@@ -1,7 +1,30 @@
 openai>=1.30.0
 python-dotenv>=1.0.1
+requests>=2.32.0
+
+# Voz
 pyttsx3>=2.90
 SpeechRecognition>=3.10.0
-pyaudio>=0.2.14
+sounddevice
+scipy
+faster-whisper
+numpy
 tqdm>=4.66.0
-requests>=2.32.0
+
+# Automatización
+pywinauto
+selenium
+
+# YouTube / Spotify
+yt-dlp
+spotipy
+
+# Web
+beautifulsoup4
+
+# IoT
+paho-mqtt
+
+# Visión
+opencv-python
+mediapipe

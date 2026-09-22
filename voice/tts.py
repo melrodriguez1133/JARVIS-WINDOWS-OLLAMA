@@ -1,11 +1,26 @@
 import pyttsx3
 
 
+# ============================================================
+# CONFIGURACIÓN DEL MOTOR DE VOZ
+# ============================================================
+
 engine = pyttsx3.init()
 
-engine.setProperty("rate", 165)
-engine.setProperty("volume", 1.0)
+engine.setProperty(
+    "rate",
+    165
+)
 
+engine.setProperty(
+    "volume",
+    1.0
+)
+
+
+# ============================================================
+# OBTENER VOCES
+# ============================================================
 
 def get_voices():
 
@@ -17,12 +32,18 @@ def get_voices():
 
     for i, voice in enumerate(voices):
 
-        print(f"[{i}] {voice.name}")
+        print(
+            f"[{i}] {voice.name}"
+        )
 
     print("=" * 45)
 
     return voices
 
+
+# ============================================================
+# SELECCIONAR VOZ
+# ============================================================
 
 def select_voice():
 
@@ -30,7 +51,9 @@ def select_voice():
 
     if not voices:
 
-        print("❌ No se encontraron voces.")
+        print(
+            "❌ No se encontraron voces."
+        )
 
         return
 
@@ -64,7 +87,9 @@ def select_voice():
 
                 break
 
-            print("❌ Número de voz inválido.")
+            print(
+                "❌ Número de voz inválido."
+            )
 
         except ValueError:
 
@@ -73,13 +98,19 @@ def select_voice():
             )
 
 
+# ============================================================
+# TEXT TO SPEECH
+# ============================================================
+
 def speak(text):
 
     if not text:
 
         return
 
-    print(f"🔊 JARVIS: {text}")
+    print(
+        f"🔊 JARVIS: {text}"
+    )
 
     engine.say(text)
 

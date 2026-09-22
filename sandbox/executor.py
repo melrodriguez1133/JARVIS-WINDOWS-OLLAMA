@@ -1,14 +1,23 @@
 from tools.router import execute_tool
 
 
+# ============================================================
+# HERRAMIENTAS PERMITIDAS
+# ============================================================
+
 ALLOWED_TOOLS = {
     "open_notepad",
     "open_youtube",
     "search_youtube",
     "search_and_play_youtube",
-    "get_time"
+    "get_time",
+    "play_spotify",
 }
 
+
+# ============================================================
+# EJECUTOR SEGURO
+# ============================================================
 
 def execute_safely(tool_name, arguments=None):
 

@@ -7,12 +7,20 @@ from voice.stt import listen
 from voice.tts import speak, select_voice
 
 
+# ============================================================
+# JARVIS - APLICACIÓN PRINCIPAL
+# ============================================================
+
 def main():
 
     print("=" * 50)
     print("          🤖 JARVIS ASISTENTE IA")
     print("=" * 50)
     print()
+
+    # ========================================================
+    # CONFIGURAR VOZ
+    # ========================================================
 
     select_voice()
 
@@ -24,39 +32,56 @@ def main():
     print("=" * 50)
     print()
 
+    # ========================================================
+    # BUCLE PRINCIPAL
+    # ========================================================
+
     while True:
 
         try:
+
             user_input = input(
                 "🎤 ENTER = voz | escribe = texto\n"
                 "Tú: "
             )
 
         except KeyboardInterrupt:
+
             print()
             print("👋 JARVIS finalizado.")
             break
 
         voice_mode = False
 
-        # ==========================================
+        # ====================================================
         # MODO VOZ
-        # ==========================================
+        # ====================================================
 
         if user_input.strip() == "":
+
             voice_mode = True
+
             user_input = listen()
 
-        # ==========================================
+        # ====================================================
         # SIN ENTRADA
-        # ==========================================
+        # ====================================================
 
         if not user_input:
-            print("⚠️ No recibí ninguna entrada.")
+
+            print(
+                "⚠️ No recibí ninguna entrada."
+            )
+
             print()
+
             continue
 
         user_input = user_input.strip()
+
+        # ====================================================
+        # MOSTRAR ENTRADA
+        # ====================================================
 
         print()
         print("-" * 50)
@@ -64,44 +89,65 @@ def main():
         print("-" * 50)
         print()
 
-        # ==========================================
+        # ====================================================
         # SALIR
-        # ==========================================
+        # ====================================================
 
         if user_input.lower() == "salir":
 
-            response = "Hasta luego. Fue un placer ayudarte."
+            response = (
+                "Hasta luego. "
+                "Fue un placer ayudarte."
+            )
 
-            print(f"🤖 JARVIS: {response}")
+            print(
+                f"🤖 JARVIS: {response}"
+            )
+
             print()
 
             if voice_mode:
+
                 speak(response)
 
             break
 
-        # ==========================================
+        # ====================================================
         # DETECTAR INTENCIÓN
-        # ==========================================
+        # ====================================================
 
         try:
-            intent = detect_intent(user_input)
+
+            intent = detect_intent(
+                user_input
+            )
 
         except Exception as error:
-            print(f"❌ Error detectando intención: {error}")
+
+            print(
+                f"❌ Error detectando intención: {error}"
+            )
+
             intent = None
 
-        # ==========================================
+        # ====================================================
         # EJECUTAR HERRAMIENTA
-        # ==========================================
+        # ====================================================
 
         if intent:
 
-            tool_name = intent.get("tool")
-            arguments = intent.get("arguments", {})
+            tool_name = intent.get(
+                "tool"
+            )
+
+            arguments = intent.get(
+                "arguments",
+                {}
+            )
 
             print(
-                f"🧠 Herramienta detectada: {tool_name}"
+                f"🧠 Herramienta detectada: "
+                f"{tool_name}"
             )
 
             print(
@@ -130,13 +176,14 @@ def main():
             print()
 
             if voice_mode:
+
                 speak(result)
 
             continue
 
-        # ==========================================
+        # ====================================================
         # PREGUNTA NORMAL → QWEN
-        # ==========================================
+        # ====================================================
 
         prompt = f"""
 {SYSTEM_PROMPT}
@@ -154,7 +201,9 @@ JARVIS:
 
         try:
 
-            response = ask_ollama(prompt)
+            response = ask_ollama(
+                prompt
+            )
 
         except Exception as error:
 
@@ -163,18 +212,28 @@ JARVIS:
                 f"al consultar el modelo: {error}"
             )
 
+        # ====================================================
+        # MOSTRAR RESPUESTA
+        # ====================================================
+
         print()
         print("🤖 JARVIS:")
         print(response)
         print()
 
-        # ==========================================
+        # ====================================================
         # RESPUESTA POR VOZ
-        # ==========================================
+        # ====================================================
 
         if voice_mode:
+
             speak(response)
 
 
+# ============================================================
+# EJECUTAR JARVIS
+# ============================================================
+
 if __name__ == "__main__":
+
     main()

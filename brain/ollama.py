@@ -3,7 +3,14 @@ import requests
 from config import OLLAMA_URL, MODEL
 
 
-def ask_ollama(prompt: str, model: str = MODEL) -> str:
+# ============================================================
+# CONEXIÓN CON OLLAMA
+# ============================================================
+
+def ask_ollama(
+    prompt: str,
+    model: str = MODEL
+) -> str:
 
     payload = {
         "model": model,
@@ -23,16 +30,27 @@ def ask_ollama(prompt: str, model: str = MODEL) -> str:
 
         data = response.json()
 
-        return data.get("response", "").strip()
+        return data.get(
+            "response",
+            ""
+        ).strip()
 
     except requests.exceptions.ConnectionError:
 
-        return "No puedo conectarme con Ollama. Verifica que Ollama esté ejecutándose."
+        return (
+            "No puedo conectarme con Ollama. "
+            "Verifica que Ollama esté ejecutándose."
+        )
 
     except requests.exceptions.Timeout:
 
-        return "El modelo está tardando demasiado en responder."
+        return (
+            "El modelo está tardando demasiado "
+            "en responder."
+        )
 
     except Exception as e:
 
-        return f"Ocurrió un error: {e}"
+        return (
+            f"Ocurrió un error: {e}"
+        )

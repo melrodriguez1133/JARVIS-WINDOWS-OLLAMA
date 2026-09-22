@@ -1,3 +1,7 @@
+# ============================================================
+# DETECCIÓN DE INTENCIONES DE JARVIS
+# ============================================================
+
 def detect_intent(text):
 
     text = text.lower().strip()
@@ -68,11 +72,47 @@ def detect_intent(text):
                 ""
             ).strip()
 
-            return {
-                "tool": "search_and_play_youtube",
-                "arguments": {
-                    "query": query
+            if query:
+
+                return {
+                    "tool": "search_and_play_youtube",
+                    "arguments": {
+                        "query": query
+                    }
                 }
-            }
+
+    # ==========================================
+    # SPOTIFY
+    # ==========================================
+
+    spotify_phrases = [
+        "reproduce en spotify",
+        "reproducir en spotify",
+        "pon en spotify",
+        "poner en spotify",
+        "busca en spotify",
+        "buscar en spotify",
+        "reproduce spotify",
+        "reproducir spotify"
+    ]
+
+    for phrase in spotify_phrases:
+
+        if phrase in text:
+
+            query = text.replace(
+                phrase,
+                ""
+            ).strip()
+
+            if query:
+
+                return {
+                    "tool": "play_spotify",
+                    "arguments": {
+                        "query": query
+                    }
+                }
 
     return None
+ 
