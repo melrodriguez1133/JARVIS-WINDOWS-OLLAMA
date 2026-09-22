@@ -1,11 +1,19 @@
 import sounddevice as sd
-import numpy as np
 import speech_recognition as sr
 
 
+# ============================================================
+# CONFIGURACIÓN DE AUDIO
+# ============================================================
+
 SAMPLE_RATE = 16000
 CHANNELS = 1
+LISTEN_SECONDS = 5
 
+
+# ============================================================
+# SPEECH TO TEXT
+# ============================================================
 
 def listen():
 
@@ -20,7 +28,7 @@ def listen():
         # --------------------------------
 
         audio_data = sd.rec(
-            int(SAMPLE_RATE * 5),
+            int(SAMPLE_RATE * LISTEN_SECONDS),
             samplerate=SAMPLE_RATE,
             channels=CHANNELS,
             dtype="int16"
@@ -51,9 +59,7 @@ def listen():
             language="es-ES"
         )
 
-        print(
-            f"📝 Tú dijiste: {text}"
-        )
+        print(f"📝 Tú dijiste: {text}")
 
         return text
 
